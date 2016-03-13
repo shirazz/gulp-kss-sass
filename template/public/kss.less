@@ -1,0 +1,233 @@
+@import 'markdown';
+#kss-hr {
+  background: #b0ce4a;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  position: fixed;
+  display: block;
+}
+#kss-nav {
+	width:20%;
+
+	nav>ul {
+		padding:0;
+		margin:2em;
+    margin-top:2.5em;
+		list-style-type:none;
+	}
+}
+.kss-sidebar{
+  &.kss-fixed{
+    position: fixed !important;
+    top: 0;
+  }
+} 
+
+#kss-header h1 {
+  font-size:1.5em;
+  margin-top:5/3em;
+  margin-left:4/3em;
+  margin-bottom:0;
+  background: url('https://dl.dropboxusercontent.com/s/5lrbji03mtks0py/faya-logo.png') no-repeat;
+  text-indent: -999em;
+  display: block;
+  height:50px;
+}
+#kss-header h2 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left:2.8em;
+}
+
+#kss-main, #kss-nav {
+	position:absolute;
+	top:0;
+	left:0;
+}
+.kss-nav {
+  li{
+    font-size: 14px;
+    &.kss-active{
+      a{
+        font-weight: 700;
+        border-bottom: 2px solid #b0ce4a;
+      }
+    }
+    a{
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      color: #000;
+      display: block;
+      &:hover{
+        color: #999;
+      }
+    }
+  }
+}
+.kss-nav{
+  .kss-menu-child {
+    margin:0;
+    padding:0;
+    list-style-type: none;
+    li{
+      a{
+        font-weight: normal;
+        border-bottom: 0px;
+        color: #999;
+      }
+      &.kss-active{
+        a{
+          color: #000;
+        }
+      }
+    }
+  }
+}
+#kss-content {
+  p {
+    line-height: 1.5
+  }
+  #introduction {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 1em 0;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    padding: 1em 0 .3em 0;
+    color: #b0ce4a;
+  }
+}
+#kss-main {
+	padding-left:2.5%;
+	width:77.5%;
+	max-width:48em;
+	left:20%;
+}
+.kss-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 1em 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  padding: 1em 0 .3em 0;
+  color: #b0ce4a;
+}
+.kss-mod-list {
+  width:100%;
+}
+
+.kss-mod-name {
+  text-align:right;
+  width:20%;
+  font-size:0.75em;
+}
+
+.kss-mod-example {
+  padding-bottom:20px;
+         
+         display:block;
+  &>td { display:block; }
+}
+
+.kss-markup {
+  margin-bottom:40px;
+  pre {
+    white-space: pre;
+    word-wrap: normal;
+    overflow: auto;
+    margin: 0;
+    padding: 12px 15px;
+    border-top: 1px solid #e3e3e3;
+    border-left: 3px solid #d1e060;
+    border-right: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+#kss-wrapper {
+  p {
+    font-size: 14px;
+  }
+}
+#kss-wrapper code {
+    line-height: 1.5;
+    font-size: 13px;
+    font-family: Consolas,Menlo,'Liberation Mono',Courier,monospace;
+    color: #222;
+    padding: 1px 2px;
+    border: 1px solid #e3e3e3;
+    vertical-align: 1px;
+}
+.kss-mod-desc {
+  p {
+    font-weight: bold;
+  }
+}
+
+.kss-depth-1 > h1 { font-size: 1.4em * 0.950; }
+.kss-depth-2 > h1 { font-size: 1.4em * 0.900; }
+.kss-depth-3 > h1 { font-size: 1.4em * 0.850; }
+.kss-depth-4 > h1 { font-size: 1.4em * 0.800; }
+.kss-depth-5 > h1 { font-size: 1.4em * 0.750; }
+.kss-depth-6 > h1 { font-size: 1.4em * 0.700; }
+
+// ------------------------------------------------------------------------------
+//   @group prettyprint.js styling
+// ------------------------------------------------------------------------------
+/* Pretty printing styles. Used with prettify.js. */
+
+/* SPAN elements with the classes below are added by prettyprint. */
+.pln { color: #000 }  /* plain text */
+
+@media screen {
+  .str { color: #080 }  /* string content */
+  .kwd { color: #008 }  /* a keyword */
+  .com { color: #800 }  /* a comment */
+  .typ { color: #606 }  /* a type name */
+  .lit { color: #066 }  /* a literal value */
+  /* punctuation, lisp open bracket, lisp close bracket */
+  .pun, .opn, .clo { color: #660 }
+  .tag { color: #008 }  /* a markup tag name */
+  .atn { color: #606 }  /* a markup attribute name */
+  .atv { color: #080 }  /* a markup attribute value */
+  .dec, .var { color: #606 }  /* a declaration; a variable name */
+  .fun { color: red }  /* a function name */
+}
+
+/* Use higher contrast and text-weight for printable form. */
+@media print, projection {
+  .str { color: #060 }
+  .kwd { color: #006; font-weight: bold }
+  .com { color: #600; font-style: italic }
+  .typ { color: #404; font-weight: bold }
+  .lit { color: #044 }
+  .pun, .opn, .clo { color: #440 }
+  .tag { color: #006; font-weight: bold }
+  .atn { color: #404 }
+  .atv { color: #060 }
+}
+
+/* Put a border around prettyprinted code snippets. */
+/*pre.prettyprint { padding: 2px; border: 1px solid #888 }*/
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L5,
+li.L6,
+li.L7,
+li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 { background: #eee }

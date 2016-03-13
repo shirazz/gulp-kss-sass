@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <title>FAYA: Living Styleguide</title>
+  <meta name="description" content="">
+  <meta name="generator" content="kss-node" />
+
+  <meta name="viewport" content="width=device-width">
+
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="public/kss.css">
+  <link rel="stylesheet" href="public/style.css">
+
+</head>
+<body>
+<div id="kss-hr"></div>
+<div id="kss-wrapper">  
+  <div id="kss-nav" class="kss-sidebar">
+    <div class="kss-sidebar-inner">
+      <header id="kss-header">
+        <hgroup>
+          <h1>FAYA</h1>
+          <h2>Web Visual Styleguide.</h2>
+        </hgroup>
+      </header>
+      <aside>
+        <nav id="main-nav" class="kss-nav">
+          <ul class="kss-menu" data-kss-ref="{{rootNumber}}">
+            <li class="kss-menu-item"><a href="index.html">Introduction</a></li>
+            {{#eachRoot}}
+              <li class="kss-menu-item">
+                <a href="section-{{reference}}.html">
+                  <span class="kss-ref">{{reference}}.0:</span> 
+                  <span class="kss-name">{{header}}</span>
+                </a>
+              </li>
+            {{/eachRoot}}
+          </ul>
+          {{#if homepage}}
+          {{else}}
+          <ul class="kss-menu-child">
+            {{#eachSection rootNumber}}
+            {{#whenDepth 1}}
+            {{else}}
+              <li class="kss-menu-item">
+                <a href="#section-{{reference}}">
+                  <span class="kss-ref">{{reference}}</span>
+                  <span class="kss-name">{{header}}</span>
+                </a>
+              </li>
+            {{/whenDepth}}
+            {{/eachSection}}
+          </ul>
+          {{/if}}
+        </nav>
+      </aside>
+    </div>
+  </div>
+
+  <div role="main" id="kss-main">
+    <article id="kss-content">
+      {{#if overview}}
+        {{html overview}}
+      {{else}}
+
+        {{!
+          Find each section, in order.
+          If there's no markup or modifiers supplied, use a Markdown-only
+          layout instead.
+
+          The "root" element comes first in this loop, and can be detected using
+          the "#whenDepth 1" block as seen below.
+        }}
+        {{#eachSection rootNumber}}
+          {{#whenDepth 1}}
+            <h1 class="kss-title" id="section-{{reference}}">
+              <span class="kss-ref">{{ reference }}.0</span> - {{ header }}
+            </h1>
+          {{else}}
+           <section class="kss-depth-{{ refDepth }}">
+            <h1 class="kss-title" id="section-{{reference}}">
+              <span class="kss-ref">{{ reference }}</span> - {{ header }}
+            </h1>
+          {{/whenDepth}}
+            {{#ifAny markup modifiers}}
+                <div class="kss-box">{{html description}}</div>
+                <table class="kss-mod-list">
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Default styling</p></td>
+                    <td class="kss-mod-name"></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2">{{modifierMarkup}}</td>
+                  </tr>
+                {{#eachModifier}}
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc">{{html description}}</td>
+                    <td class="kss-mod-name"><p>{{name}}</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2">{{modifierMarkup}}</td>
+                  </tr>
+                {{/eachModifier}}
+                </table>
+                <div class="kss-markup">
+                  <pre class="prettyprint lang-html">{{markup}}</pre>
+                </div>
+            {{else}}
+                {{#if description}}
+                  {{html description}}
+                {{/if}}
+            {{/ifAny}}
+          {{#whenDepth 1}} {{else}}
+            </section>
+          {{/whenDepth}}
+        {{/eachSection}}
+      {{/if}}
+    </article>
+  </div>
+  <footer>
+    {{#if argv.xdemo}}<a href="http://github.com/hughsk/kss-node"><img id="kss-github" style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub"></a>{{/if}}
+  </footer>
+  <!-- SCRIPTS -->
+  <script src="public/kss.js"></script>
+  <script src="public/prettify.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Ensure code blocks are highlighted properly...
+      $('pre>code').addClass('prettyprint');
+      prettyPrint();
+
+    });
+
+
+    (function ($) {
+    $(function () {
+        var $window = $(window),
+            $document = $(document),
+            $content = $('#kss-main'),
+            $sidebar = $('.kss-sidebar'),
+            $sidebarInner = $('.kss-sidebar-inner'),
+            $menu = $('.kss-menu'),
+            $childMenu = $('.kss-menu-child'),
+            $menuItem = $menu.find('.kss-menu-item'),
+            $childMenuItem = $childMenu.find('.kss-menu-item'),
+            ref = $menu.data('kss-ref'),
+            prevScrollTop;
+    // Dynamic menu activation
+    function scrollSpy() {
+        var scrollTop = $window.scrollTop(),
+            $anchors = $childMenu.find('a'),
+            activeIndex;
+        $anchors.each(function (index) {
+            var $target = $($(this).attr('href').replace(/\./g, '\\.')),
+                offsetTop = $target.offset().top,
+                offsetBottom = offsetTop + $target.outerHeight(true);
+            if (offsetTop <= scrollTop && scrollTop < offsetBottom) {
+                activeIndex = index;
+                return false;
+            }
+        });
+        $childMenuItem.removeClass('kss-active');
+        if (typeof activeIndex !== 'undefined') {
+            $childMenuItem.eq(activeIndex).addClass('kss-active');
+        }
+    }
+    // Activate current page item
+    $menuItem.eq(ref).addClass('kss-active');
+
+    // Append child menu and attach scrollSpy
+    if ($childMenu.length) {
+        $childMenu.show().appendTo($menuItem.eq(ref));
+        $window.on('scroll', scrollSpy).trigger('scroll');
+    }
+
+    // Fix sidebar position
+    function fixSidebar() {
+        if ($sidebarInner.outerHeight() < $content.outerHeight()) {
+            $sidebar.addClass('kss-fixed');
+            if ($sidebarInner.outerHeight() > $window.height()) {
+                $sidebar.height($window.height());
+                $window.on('scroll', scrollSidebar).trigger('scroll');
+            }
+            else {
+                $sidebar.height('auto');
+                $window.off('scroll', scrollSidebar);
+            }
+        }
+        else {
+            $sidebar.removeClass('kss-fixed');
+            $sidebar.height('auto');
+            $window.off('scroll', scrollSidebar);
+        }
+    }
+
+    // Synchronize sidebar scroll
+    function scrollSidebar(event) {
+        if (event.handled !== true) {
+            var scrollTop = $window.scrollTop(),
+                maxScrollTop = $document.height() - $window.height();
+            if (scrollTop >= 0 && prevScrollTop >= 0 && scrollTop <= maxScrollTop && prevScrollTop <= maxScrollTop) {  // for Mac scrolling
+                $sidebar.scrollTop($sidebar.scrollTop() + (scrollTop - prevScrollTop));
+            }
+            prevScrollTop = scrollTop;
+            event.handled = true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // Fixed sidebar
+    if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        $window.on('resize', fixSidebar).trigger('resize');
+    }
+  });
+}(jQuery));
+  </script>
+
+  {{! This won't be included in the demo page }}
+  {{#if argv.xdemo}}
+    <script type="text/javascript">
+    var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-12249588-4']); _gaq.push(['_trackPageview']);
+    (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })();
+    </script>
+  {{/if}}
+</div></body>
+</html>

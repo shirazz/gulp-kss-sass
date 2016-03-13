@@ -1,0 +1,24 @@
+$md-font-headers          : 'Lato', Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+$md-font-body             : 'Lato', Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+$md-font-monospace        : 'Monaco', 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
+body {
+	font-family: $md-font-body;
+}
+a {
+	&:hover,
+	&:focus {
+		text-decoration:none;
+	}
+}
+
+#main-nav{
+	.kss-menu-child{
+		li{
+			a {
+				&:hover {
+					color: #000;
+				}
+			}
+		} 
+	}
+}  
